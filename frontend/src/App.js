@@ -1,5 +1,6 @@
 "use strict";
-import './App.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route , Navigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import ClientDash from "./ClientDash";
@@ -9,7 +10,7 @@ import HomePage from './HomePage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ textAlign: "center"}}>
       <BrowserRouter>
         <NavBar />
         <Routes>

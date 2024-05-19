@@ -1,8 +1,13 @@
 "use strict";
 
+import ClientList from "./ClientList";
+import { Button } from "react-bootstrap";
+
 function TrainerDash() {
   return <main>
-    <p>This is the trainer dashboard</p>
+    <p>[TRAINER]'s dashboard</p>
+    <ClientList />
+    <Button variant="primary">Add client</Button>
   </main>;
 }
 
