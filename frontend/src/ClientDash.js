@@ -5,7 +5,7 @@ import ClientPRs from "./ClientPRs";
 
 function ClientDash() {
   return <div>
-    <p> This is the client dashboard </p>
+    <h1 style={{margin:"2%"}}> [CLIENT]'s dashboard </h1>
     <ClientWorkouts />
     <ClientProgressGraph/>
     <ClientPRs/>
