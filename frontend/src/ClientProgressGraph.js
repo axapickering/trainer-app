@@ -6,7 +6,7 @@ import "./ClientProgressGraph.css";
 import fakeClientData from "./fakeClientData.json";
 
 function ClientProgressGraph() {
-  return <div className="client-progress-graph">
+  return <div className="client-progress-graph bg-light p-4 rounded">
 
     <Line
     data = {{

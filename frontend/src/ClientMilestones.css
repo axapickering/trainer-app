@@ -1,0 +1,8 @@
+.client-milestones-pane {
+  position: absolute;
+  bottom: 10vh;
+  left: 10vw;
+  height: 35h;
+  width: 55vh;
+  text-wrap: nowrap;
+}

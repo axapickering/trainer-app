@@ -1,14 +1,15 @@
 "use strict";
+import './ClientDash.css';
 import ClientWorkouts from "./ClientWorkouts";
 import ClientProgressGraph from "./ClientProgressGraph";
-import ClientPRs from "./ClientPRs";
+import ClientMilestones from "./ClientMilestones";
 
 function ClientDash() {
   return <div>
-    <h1 style={{margin:"2%"}}> [CLIENT]'s dashboard </h1>
+    <h1 className='client-dash-name'>[CLIENT] dashboard</h1>
     <ClientWorkouts />
     <ClientProgressGraph/>
-    <ClientPRs/>
+    <ClientMilestones/>
   </div>
 }
 

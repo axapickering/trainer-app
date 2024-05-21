@@ -1,7 +1,7 @@
 .client-progress-graph {
   position: absolute;
-  top: 20vh;
+  top: 25vh;
   right: 10vh;
   width: 50vw;
-  height: 70vh;
+  height: 60vh;
 }
