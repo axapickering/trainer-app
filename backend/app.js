@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 
 
-
+const PORT = process.env.PORT || 3000;
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -51,10 +51,6 @@ const getTokenParams = (code) =>
 
 const app = express();
 
-const PORT = process.env.PORT || 3000
-
-app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`))
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -76,6 +72,15 @@ app.use(
   }),
 )
 
+app.get('/user/posts', auth, async (_, res) => {
+  try {
+    const { data } = await axios.get(config.postUrl)
+    res.json({ posts: data?.slice(0, 5) })
+  } catch (err) {
+    console.error('Error: ', err)
+  }
+})
+
 const auth = (req, res, next) => {
   try {
     const token = req.cookies.token
@@ -89,10 +94,6 @@ const auth = (req, res, next) => {
 }
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
 app.get('/auth/url', (_, res) => {
   res.json({
@@ -103,29 +104,29 @@ app.get('/auth/url', (_, res) => {
 app.get('/auth/token', async (req, res) => {
   const { code } = req.query
   if (!code) return res.status(400).json({ message: 'Authorization code must be provided' })
-  try {
-    // Get all parameters needed to hit authorization server
-    const tokenParam = getTokenParams(code)
-    // Exchange authorization code for access token (id token is returned here too)
-    const {
-      data: { id_token },
-    } = await axios.post(`${config.tokenUrl}?${tokenParam}`)
-    if (!id_token) return res.status(400).json({ message: 'Auth error' })
+    try {
+  // Get all parameters needed to hit authorization server
+  const tokenParam = getTokenParams(code)
+  // Exchange authorization code for access token (id token is returned here too)
+  const {
+    data: { id_token },
+  } = await axios.post(`${config.tokenUrl}?${tokenParam}`)
+  if (!id_token) return res.status(400).json({ message: 'Auth error' })
     // Get user info from id token
-    const { email, name, picture } = jwt.decode(id_token)
-    const user = { name, email, picture }
-    // Sign a new token
-    const token = jwt.sign({ user }, config.tokenSecret, { expiresIn: config.tokenExpiration })
-    // Set cookies for user
-    res.cookie('token', token, { maxAge: config.tokenExpiration, httpOnly: true })
-    // You can choose to store user in a DB instead
-    res.json({
-      user,
-    })
-  } catch (err) {
-    console.error('Error: ', err)
-    res.status(500).json({ message: err.message || 'Server error' })
-  }
+  const { email, name, picture } = jwt.decode(id_token)
+  const user = { name, email, picture }
+  // Sign a new token
+  const token = jwt.sign({ user }, config.tokenSecret, { expiresIn: config.tokenExpiration })
+  // Set cookies for user
+  res.cookie('token', token, { maxAge: config.tokenExpiration, httpOnly: true })
+  // You can choose to store user in a DB instead
+  res.json({
+    user,
+  })
+} catch (err) {
+  console.error('Error: ', err)
+  res.status(500).json({ message: err.message || 'Server error' })
+}
 });
 
 app.get('/user/posts', auth, async (_, res) => {
@@ -142,7 +143,7 @@ app.get('/auth/logged_in', (req, res) => {
     // Get token from cookie
     const token = req.cookies.token
     if (!token) return res.json({ loggedIn: false })
-    const { user } = jwt.verify(token, config.tokenSecret)
+      const { user } = jwt.verify(token, config.tokenSecret)
     const newToken = jwt.sign({ user }, config.tokenSecret, { expiresIn: config.tokenExpiration })
     // Reset token in cookie
     res.cookie('token', newToken, { maxAge: config.tokenExpiration, httpOnly: true })
@@ -157,6 +158,11 @@ app.post('/auth/logout', (_, res) => {
   res.clearCookie('token').json({ message: 'Logged out' })
 });
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -167,5 +173,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`))
+
 
 module.exports = app;

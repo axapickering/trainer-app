@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import ClientDash from "./ClientDash";
 import TrainerDash from "./TrainerDash";
 import HomePage from './HomePage';
+import WorkoutBuilder from './WorkoutBuilder';
 
 axios.defaults.withCredentials = true;
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<HomePage/>} />
           <Route path="/client" element={<ClientDash/>} />
           <Route path="/trainer" element={<TrainerDash/>} />
+          <Route path="/workoutbuilder" element={<WorkoutBuilder/>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
