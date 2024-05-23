@@ -1,8 +1,7 @@
 .client-workouts-pane {
   position: absolute;
-  left: 12vw;
-  top: 12vh;
-  width: 20vw;
-  height: 40vh;
-
+  left: 8vw;
+  top: 10vh;
+  width: 30vw;
+  height: 50vh;
 }

@@ -8,6 +8,7 @@ import ClientDash from "./ClientDash";
 import TrainerDash from "./TrainerDash";
 import HomePage from './HomePage';
 import WorkoutBuilder from './WorkoutBuilder';
+import ExerciseLibrary from './ExerciseLibrary';
 
 axios.defaults.withCredentials = true;
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/client" element={<ClientDash/>} />
           <Route path="/trainer" element={<TrainerDash/>} />
           <Route path="/workoutbuilder" element={<WorkoutBuilder/>} />
+          <Route path="/library" element={<ExerciseLibrary/>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

@@ -3,6 +3,7 @@ import "./ClientWorkouts.css";
 
 import Workout from "./Workout";
 import { Container } from "react-bootstrap";
+import Stack from 'react-bootstrap/Stack';
 
 const fakeWorkouts = [
   {
@@ -27,23 +28,22 @@ const fakeWorkouts = [
 function ClientWorkouts({ workouts=fakeWorkouts }) {
 
   const nextWorkout = (<Workout data={workouts.pop()}/>);
-  const previousWorkouts = workouts.map(data => {(<Workout data={data}/>)});
 
 
   return <Container className="client-workouts-pane bg-light">
 
-    <h2>Workouts</h2>
+    <h2 className="m-auto">Workouts</h2>
 
-      {previousWorkouts}
+    <Stack direction="vertical" gap={1}>
+      {workouts.map((workout) => (<Workout data={workout}/>))}
+    </Stack>
 
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
 
-    <h3>Upcoming</h3>
+    <h3 className="m-auto">Upcoming</h3>
+
+    <Container direction="vertical" className="m-auto" style={{justifyContent:'center'}}>
     {nextWorkout}
+    </Container>
 
   </Container>
 }

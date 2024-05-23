@@ -2,17 +2,19 @@
 
 import Card from 'react-bootstrap/Card';
 
-function Workout({ data={} }) {
+const fakeData = {
+  title: 'Default day',
+  date: '04/04/04'
+}
+
+function Workout({ data=fakeData }) {
 
   const { date, title } = data;
 
-  console.log(`tried to render workout : ${title}`)
-
   return (
-    <Card>
-      <Card.Header>{ date }</Card.Header>
-      <Card.Body>{ title }</Card.Body>
-    </Card>
+    <div className="bg-white rounded-100"style={{maxWidth:'12vw',alignSelf:'center'}}>
+      <p>{ title } : { date }</p>
+    </div>
   );
 }
 

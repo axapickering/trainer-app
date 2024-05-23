@@ -7,7 +7,7 @@ import ClientMilestones from "./ClientMilestones";
 function ClientDash() {
   return <div>
     <h1 className='client-dash-name'>[CLIENT] dashboard</h1>
-    <ClientWorkouts />
+    <ClientWorkouts/>
     <ClientProgressGraph/>
     <ClientMilestones/>
   </div>

@@ -2,6 +2,7 @@
 
 import "./ClientMilestones.css";
 import Milestone from "./Milestone";
+import Stack from "react-bootstrap/Stack";
 
 const fakeMilestones = [
   {
@@ -29,9 +30,10 @@ function ClientMilestones( { milestones=fakeMilestones }) {
   return <div className="client-milestones-pane bg-light rounded p-3">
 
     <h2>Milestones</h2>
+
+    <Stack gap={1}>
     {fakeMilestones.map(({ date, text }) => <Milestone date={date} text={text}/>)}
-    {
-  }
+    </Stack>
 
   </div>
 }
