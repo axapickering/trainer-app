@@ -1,18 +1,13 @@
-"use strict";
 import {useDraggable} from '@dnd-kit/core';
+import {CSS} from '@dnd-kit/utilities';
 
-export default function ExerciseBox(props) {
+export default function Draggable(props) {
   const {attributes, listeners, setNodeRef, transform} = useDraggable({
     id: 'draggable',
   });
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    width: `10vw`,
-    height: `10vh`,
-  } : {
-    width: `10vw`,
-    height: `10vh`,
-  };
+  } : undefined;
 
 
   return (

@@ -1,10 +1,16 @@
 "use strict";
 
-import { Container } from "react-bootstrap";
-import MovementType from "./MovementType";
+import {DndContext} from '@dnd-kit/core';
+import ExerciseBox from './ExerciseBox';
+import ExerciseSlot from './ExerciseSlot';
 
 export default function WorkoutBuilder() {
-  return (<Container>
-    <MovementType/>
-  </Container>)
+  return (
+    <DndContext>
+      <div className='container'>
+      <ExerciseSlot />
+      <ExerciseBox />
+      </div>
+    </DndContext>
+  );
 }
