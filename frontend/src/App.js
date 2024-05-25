@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route , Navigate } from 'react-router-dom';
 import NavBar from './NavBar';
-import ClientDash from "./ClientDash";
-import TrainerDash from "./TrainerDash";
+import ClientDash from "./ClientDash/ClientDash";
+import TrainerDash from "./TrainerDash/TrainerDash";
 import HomePage from './HomePage';
-import WorkoutBuilder from './WorkoutBuilder';
+import WorkoutBuilder from './WorkoutBuilder/WorkoutBuilder';
 import ExerciseLibrary from './ExerciseLibrary';
 
 axios.defaults.withCredentials = true;
