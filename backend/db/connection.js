@@ -1,5 +1,8 @@
-import 'dotenv/config';
-import { MongoClient, ServerApiVersion } from "mongodb";
+"use strict";
+const { MongoClient, ServerApiVersion } = require("mongodb");
+
+require('dotenv').config();
+
 
 const uri = process.env.URI || "";
 
@@ -27,6 +30,4 @@ async function run() {
 
 run().catch(console.dir);
 
-let db = client.db("employees");
-
-export default db;
+module.exports = client.db('users');
