@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
   name: String,
   exercises: [{
     name: String,
+    password: String,
     maxWeights: {
       oneRepMax: Number,
       threeRepMax: Number,
