@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+/**
+ *  Mongoose schema for User model
+ *  Allows us to perform CRUD operations on users
+ */
+
 const UserSchema = new mongoose.Schema({
   name: String,
   exercises: [{

@@ -1,19 +1,19 @@
-
 "use strict";
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const morgan = require('morgan');
 const userRouter = require('./routes/user');
 
 
 const app = express();
 
 
-// Middleware to parse JSON
+// Middleware for logging, json parsing etc
 app.use(express.json());
 app.use(cors());
+app.use(morgan("tiny"));
 
 // MongoDB connection string
 const mongoURI = process.env.URI;
@@ -24,76 +24,7 @@ mongoose.connect(mongoURI)
   .catch(err => console.log(err));
 
 
-app.use('/users',userRouter);
-
-
-// // Define routes
-// app.get('/', (req, res) => {
-//   res.send('Welcome to the Express server with MongoDB');
-// });
-
-// // Route to create a new client
-// app.post('/clients', async (req, res) => {
-//   const { name, exercises } = req.body;
-
-//   const newClient = new Client({ name, exercises });
-
-//   try {
-//     const savedClient = await newClient.save();
-//     res.status(201).json(savedClient);
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
-
-// // Route to get all clients
-// app.get('/clients', async (req, res) => {
-//   try {
-//     const clients = await Client.find();
-//     res.json(clients);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
-// // Route to get a client by ID
-// app.get('/clients/:id', async (req, res) => {
-//   try {
-//     const client = await Client.findById(req.params.id);
-//     if (!client) return res.status(404).json({ message: 'Client not found' });
-//     res.json(client);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
-// // Route to update a client by ID
-// app.put('/clients/:id', async (req, res) => {
-//   const { name, exercises } = req.body;
-
-//   try {
-//     const client = await Client.findByIdAndUpdate(
-//       req.params.id,
-//       { name, exercises },
-//       { new: true, runValidators: true }
-//     );
-//     if (!client) return res.status(404).json({ message: 'Client not found' });
-//     res.json(client);
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
-
-// // Route to delete a client by ID
-// app.delete('/clients/:id', async (req, res) => {
-//   try {
-//     const client = await Client.findByIdAndDelete(req.params.id);
-//     if (!client) return res.status(404).json({ message: 'Client not found' });
-//     res.json({ message: 'Client deleted' });
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
+app.use('/users', userRouter);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
