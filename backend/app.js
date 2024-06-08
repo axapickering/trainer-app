@@ -26,6 +26,25 @@ mongoose.connect(mongoURI)
 
 app.use('/users', userRouter);
 
+/** Handle 404 errors*/
+app.use(function (req, res, next) {
+  throw new NotFoundError();
+});
+
+/** Unhandled errors go here. */
+app.use(function (err, req, res, next) {
+  if (process.env.NODE_ENV !== "test") console.error(err.stack);
+  /* istanbul ignore next (ignore for coverage) */
+  const status = err.status || 500;
+  const message = err.message;
+
+  return res.status(status).json({
+    error: { message, status },
+  });
+});
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;

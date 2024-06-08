@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
  */
 
 const UserSchema = new mongoose.Schema({
-  name: String,
+  username: String,
+  password: String,
   exercises: [{
     name: String,
-    password: String,
     maxWeights: {
       oneRepMax: Number,
       threeRepMax: Number,

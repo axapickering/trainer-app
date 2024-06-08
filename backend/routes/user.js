@@ -4,6 +4,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 
+const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
+
 /**
  *  GET /
  *  returns json of all users
@@ -20,13 +22,13 @@ router.get('/', async (req, res) => {
 });
 
 /**
- *  GET /:name
- *  expects route parameter name : name of user to be searched for
+ *  GET /:username
+ *  expects route parameter username : username of user to be searched for
  *  returns user info or a message indicating user was not found
  */
-router.get('/:name', async (req, res) => {
+router.get('/:username', async (req, res) => {
   try {
-    const foundUser = await User.findOne({ name: req.params.name }).exec();
+    const foundUser = await User.findOne({ username: req.params.username }).exec();
     res.json({ foundUser } || "User not found.");
   } catch (err) {
     console.error(err);
@@ -37,38 +39,44 @@ router.get('/:name', async (req, res) => {
 
 /**
  *  POST /
- *  expects req body { name, password }
+ *  expects req body { username, password }
  *  creates new user with given credentials (and hashes pass)
- *  errors if username already exists.
+ *  errors if username already exists or missing username/password
  */
 router.post('/', async (req, res) => {
   try {
-    let name = req.body.name;
-    let password = await bcrypt.hash(req.body.password, 10);
-    const foundUser = await User.findOne({ name }).exec();
+
+    if (!('username' in req.body ) || !('password' in req.body)) {
+      return res.json("Username and password required.");
+    }
+
+    let username = req.body.username;
+    let password = await bcrypt.hash(req.body.password, BCRYPT_WORK_FACTOR);
+
+    const foundUser = await User.findOne({ username }).exec();
     if (foundUser != null) {
-      res.json(`Username ${name} already taken.`);
+      return res.json(`Username ${username} already taken.`);
     } else {
-      await User.create({ name, password });
-      res.status(201).json(`User ${name} successfully created.`);
+      await User.create({ username, password });
+      return res.status(201).json(`User ${username} successfully created.`);
     }
 
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error.");
+    return res.status(500).send("Internal Server Error.");
   }
 });
 
 /**
- *  DELETE /:name
- *  expects route parameter name : name of user to be deleted
+ *  DELETE /:username
+ *  expects route parameter username : username of user to be deleted
  *  errors if the user is not found.
  */
-router.delete('/:name', async (req, res) => {
+router.delete('/:username', async (req, res) => {
   try {
-    const name = req.params.name;
-    await User.deleteMany({ name });
-    res.send(`User ${name} deleted.`);
+    const username = req.params.username;
+    await User.deleteMany({ username });
+    res.send(`User ${username} deleted.`);
 
   } catch (err) {
     console.error(err);
