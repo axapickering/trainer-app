@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('../models/user');
+const { User } = require('../models/user');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
@@ -8,13 +8,15 @@ const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
 
 /**
  *  GET /
- *  returns json of all users
+ *  returns json of all users' usernames
  *
  */
 router.get('/', async (req, res) => {
   try {
-    const userInstances = await User.find().exec();
-    res.json( { userInstances } );
+    let data = await User.find().exec();
+    // excluding all data other than username
+    data = data.map(user => user.username);
+    res.json( data );
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error.");
@@ -46,9 +48,9 @@ router.get('/:username', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
 
-    if (!('username' in req.body ) || !('password' in req.body)) {
-      return res.json("Username and password required.");
-    }
+    // if (!('username' in req.body ) || !('password' in req.body)) {
+    //   return res.json("Username and password required.");
+    // }
 
     let username = req.body.username;
     let password = await bcrypt.hash(req.body.password, BCRYPT_WORK_FACTOR);
@@ -63,7 +65,7 @@ router.post('/', async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    return res.status(500).send("Internal Server Error.");
+    return res.json(err.message);
   }
 });
 

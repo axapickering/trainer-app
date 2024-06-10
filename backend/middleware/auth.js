@@ -10,7 +10,7 @@ function authenticateJWT(req, res, next) {
     const token = authHeader.replace(/^[Bb]earer /, "").trim();
 
     try {
-      res.locals.user = jwt.verify(token, SECRET_KEY);
+      res.locals.user = jwt.verify(token, process.env.SECRET_KEY);
     } catch (err) {
       /* ignore invalid tokens (but don't store user!) */
     }
@@ -39,3 +39,9 @@ function ensureCorrectUser(req, res, next) {
   throw new UnauthorizedError
     ("You are not authorized to access this route. (Incorrect user)");
 }
+
+module.exports = {
+  authenticateJWT,
+  ensureLoggedIn,
+  ensureCorrectUser
+};
