@@ -1,7 +1,7 @@
 "use strict";
 
-import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route , Navigate } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -13,6 +13,7 @@ import ExerciseLibrary from './ExerciseLibrary';
 import TrainerAppApi from './Api';
 import { jwtDecode } from 'jwt-decode';
 import  userContext from './userContext';
+import RegisterPage from './RegisterPage';
 
 
 axios.defaults.withCredentials = true;
@@ -80,6 +81,7 @@ function App() {
           <Route path="/trainer" element={<TrainerDash/>} />
           <Route path="/workoutbuilder" element={<WorkoutBuilder/>} />
           <Route path="/library" element={<ExerciseLibrary/>} />
+          <Route path="/register" element={<RegisterPage/>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

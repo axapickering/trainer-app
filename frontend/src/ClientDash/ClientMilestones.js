@@ -1,7 +1,7 @@
 "use strict";
 
 import "./ClientMilestones.css";
-import Milestone from "../Milestone";
+import Milestone from "./Milestone";
 import Stack from "react-bootstrap/Stack";
 
 const fakeMilestones = [

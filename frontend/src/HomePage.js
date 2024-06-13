@@ -1,15 +1,33 @@
 "use strict";
 
-import { Button } from "react-bootstrap";
+import LoginForm from './LoginForm';
+import userContext from "./userContext";
+import ClientDash from './ClientDash/ClientDash';
+import { useContext } from 'react';
+import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
+
 function HomePage() {
+  const username = useContext(userContext)?.username;
+
+  function loggedOut() {
+    return (<>
+      <LoginForm />
+      <p className='mb-2'>New user?</p>
+      <Link to="/register"><Button>Create account</Button></Link>
+    </>);
+  }
+
+  function loggedIn() {
+    return (<>
+      <ClientDash />
+    </>
+    );
+  }
+
   return <div>
-    <Link to="/trainer"><Button variant="primary" style={{margin:"1%"}}>Sign in as a trainer</Button></Link>
-    <br/>
-    <Link to="/client"><Button variant="primary" style={{margin:"1%"}}>Sign in as a client</Button></Link>
-    <br/>
-    <Link to="/fakeclient"><Button variant="primary" style={{margin:"1%"}}>Sign in as a fake client</Button></Link>
+    {username ? loggedIn() : loggedOut()}
   </div>;
 }
 
