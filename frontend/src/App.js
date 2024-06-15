@@ -50,15 +50,15 @@ function App() {
 
   /**Function to be called in signup form to call API and register user */
   async function signup(formData) {
-    let res = await TrainerAppApi.signup(formData);
-    setToken(res.token);
+    let res = await TrainerAppApi.register(formData);
+    // setToken(res.token);
     return;
   }
 
   /**Function to be called in login form to call API and login the user*/
   async function login(formData) {
     let res = await TrainerAppApi.login(formData);
-    setToken(res.token);
+    // setToken(res.token);
     return;
   }
 

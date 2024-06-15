@@ -3,11 +3,31 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Container, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import Alert from './Alert';
 
 function LoginForm({ login }) {
 
-  function handleSubmit() {
-    return;
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [errors, setErrors] = useState(null);
+
+  function handleChange(evt) {
+    console.log(evt.target);
+    const { id, value } = evt.target;
+    setFormData(oldData => ({ ...oldData, [id]: value }));
+  }
+
+  async function handleLogin(evt) {
+    evt.preventDefault();
+    try {
+      await login(formData);
+      setFormData({ username: "", password: "" });
+      navigate("/");
+    } catch (err) {
+      setErrors(err);
+    }
   }
 
 
@@ -20,15 +40,25 @@ function LoginForm({ login }) {
           <div className='p-4 bg-light rounded'>
             <Form>
 
-              <Form.Group className="mb-3" controlId="formUsername">
+              <Form.Group className="mb-3" controlId="username">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="username" placeholder="Username" />
+                <Form.Control
+                  type="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required />
               </Form.Group>
 
 
-              <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required />
               </Form.Group>
 
               <Button variant="primary" type="submit">
@@ -36,6 +66,7 @@ function LoginForm({ login }) {
               </Button>
 
             </Form>
+            {errors && (<Alert alerts={errors} color={"danger"} />)}
           </div>
         </Col>
       </Row>

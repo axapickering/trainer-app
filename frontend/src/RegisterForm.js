@@ -3,12 +3,32 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Container, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import Alert from "./Alert";
+
 
 function RegisterForm({ register }) {
 
-  function handleSubmit() {
-    register();
-    return;
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({username:"",password:""});
+  const [errors, setErrors] = useState(null);
+
+
+  function handleChange(evt) {
+    const { id, value } = evt.target;
+    setFormData(oldData => ({ ...oldData, [id]: value }));
+  }
+
+  async function handleSignup(evt) {
+    evt.preventDefault();
+    try {
+      await register(formData);
+      setFormData({username:"",password:""});
+      navigate("/");
+    } catch (err) {
+      setErrors(err);
+    }
   }
 
 
@@ -20,18 +40,28 @@ function RegisterForm({ register }) {
           <div className='p-4 bg-light rounded'>
             <Form>
 
-              <Form.Group className="mb-3" controlId="formUsername">
+              <Form.Group className="mb-3" controlId="username">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="username" placeholder="Username" />
+                <Form.Control type="username"
+                 placeholder="Username"
+                 value={formData.username}
+                 onChange={handleChange}
+                 required
+                 />
                 <Form.Text id="usernameHelp" muted>
                   Must be 3-20 characters
                 </Form.Text>
               </Form.Group>
 
 
-              <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password"
+                 placeholder="Password"
+                 value={formData.password}
+                 onChange={handleChange}
+                 required
+                  />
                 <Form.Text id="passwordHelpBlock" muted>
                   Must be 6-30 characters long
                 </Form.Text>
@@ -42,6 +72,7 @@ function RegisterForm({ register }) {
               </Button>
 
             </Form>
+            {errors && (<Alert alerts={errors} color={"danger"}/>)}
           </div>
         </Col>
       </Row>
