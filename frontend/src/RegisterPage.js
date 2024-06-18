@@ -4,9 +4,9 @@ import RegisterForm from "./RegisterForm";
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
-function RegisterPage() {
+function RegisterPage({ register }) {
   return (<>
-    <RegisterForm />
+    <RegisterForm register={register}/>
     <Link to="/">
       <Button>Return to login</Button>
     </Link>

@@ -14,7 +14,6 @@ function LoginForm({ login }) {
   const [errors, setErrors] = useState(null);
 
   function handleChange(evt) {
-    console.log(evt.target);
     const { id, value } = evt.target;
     setFormData(oldData => ({ ...oldData, [id]: value }));
   }
@@ -47,6 +46,7 @@ function LoginForm({ login }) {
                   placeholder="Username"
                   value={formData.username}
                   onChange={handleChange}
+                  autoComplete='username'
                   required />
               </Form.Group>
 
@@ -58,6 +58,7 @@ function LoginForm({ login }) {
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
+                  autoComplete='password'
                   required />
               </Form.Group>
 

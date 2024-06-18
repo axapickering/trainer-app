@@ -38,7 +38,7 @@ function RegisterForm({ register }) {
       <h1>Welcome.</h1>
         <Col xs={12} sm={10} md={8} lg={6} xl={5} className='mx-auto py-5'>
           <div className='p-4 bg-light rounded'>
-            <Form>
+            <Form onSubmit={handleSignup}>
 
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label>Username</Form.Label>
@@ -46,6 +46,7 @@ function RegisterForm({ register }) {
                  placeholder="Username"
                  value={formData.username}
                  onChange={handleChange}
+                 autoComplete='username'
                  required
                  />
                 <Form.Text id="usernameHelp" muted>
@@ -60,6 +61,7 @@ function RegisterForm({ register }) {
                  placeholder="Password"
                  value={formData.password}
                  onChange={handleChange}
+                 autoComplete='new-password'
                  required
                   />
                 <Form.Text id="passwordHelpBlock" muted>

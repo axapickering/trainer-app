@@ -1,27 +1,5 @@
 const mongoose = require('mongoose');
-
-/**
- *  Mongoose schema for Exercise model
- *  Helps decompose from User model
- */
-
-const ExerciseSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: [true, "Exercise name not supplied."],
-      minLength: [3],
-      maxLength: [20]
-    },
-    maxWeights: {
-      oneRepMax: Number,
-      threeRepMax: Number,
-      fiveRepMax: Number,
-      eightRepMax: Number,
-      tenRepMax: Number,
-      twelveRepMax: Number,
-    },
-    maxReps: Map
-});
+const { ExerciseSchema } = require('./exercise');
 
 /**
  *  Mongoose schema for User model
@@ -45,6 +23,5 @@ const UserSchema = new mongoose.Schema({
 
 
 module.exports = {
-  User: mongoose.model('User', UserSchema),
-  Exercise: mongoose.model('Exercise', ExerciseSchema)
+  User: mongoose.model('User', UserSchema)
 }

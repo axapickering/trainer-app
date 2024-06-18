@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     let data = await User.find().exec();
     // excluding all data other than username
     data = data.map(user => user.username);
-    res.json( data );
+    res.json(data);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error.");
@@ -38,30 +38,31 @@ router.get('/:username', async (req, res) => {
   }
 });
 
+router.post('/login', async (req, res) => {
+  try {
+    const foundUser = await User.findOne({ username: req.body.username }).exec();
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
 
 /**
- *  POST /
+ *  POST /register
  *  expects req body { username, password }
  *  creates new user with given credentials (and hashes pass)
  *  errors if username already exists or missing username/password
  */
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
+
   try {
-
-    // if (!('username' in req.body ) || !('password' in req.body)) {
-    //   return res.json("Username and password required.");
-    // }
-
     let username = req.body.username;
     let password = await bcrypt.hash(req.body.password, BCRYPT_WORK_FACTOR);
 
-    const foundUser = await User.findOne({ username }).exec();
-    if (foundUser != null) {
-      return res.json(`Username ${username} already taken.`);
-    } else {
-      await User.create({ username, password });
-      return res.status(201).json(`User ${username} successfully created.`);
-    }
+    await User.create({ username, password });
+    return res.status(201).json(`User ${username} successfully created.`);
 
   } catch (err) {
     console.error(err);

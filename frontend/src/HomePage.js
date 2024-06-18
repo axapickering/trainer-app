@@ -8,12 +8,12 @@ import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
 
-function HomePage() {
+function HomePage({ login }) {
   const username = useContext(userContext)?.username;
 
   function loggedOut() {
     return (<>
-      <LoginForm />
+      <LoginForm login={login}/>
       <p className='mb-2'>New user?</p>
       <Link to="/register"><Button>Create account</Button></Link>
     </>);

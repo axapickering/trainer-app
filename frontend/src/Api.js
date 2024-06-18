@@ -51,8 +51,9 @@ class TrainerAppApi {
   /**Takes user data from signup form calls api to register the user, returns
    * response
    */
-  static async signup(userData) {
-    let res = await this.request('users/signup', userData, "POST");
+  static async register(userData) {
+    console.log("user data: ",userData);
+    let res = await this.request('users/register', userData, "POST");
     return res;
   }
 

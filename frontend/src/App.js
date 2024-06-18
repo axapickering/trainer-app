@@ -3,17 +3,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Routes, Route , Navigate } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import NavBar from './NavBar';
-import ClientDash from "./ClientDash/ClientDash";
-import TrainerDash from "./TrainerDash/TrainerDash";
-import HomePage from './HomePage';
-import WorkoutBuilder from './WorkoutBuilder/WorkoutBuilder';
-import ExerciseLibrary from './ExerciseLibrary';
 import TrainerAppApi from './Api';
 import { jwtDecode } from 'jwt-decode';
 import  userContext from './userContext';
-import RegisterPage from './RegisterPage';
+import RouteList from './RouteList';
 
 
 axios.defaults.withCredentials = true;
@@ -49,16 +44,17 @@ function App() {
   }, [token]);
 
   /**Function to be called in signup form to call API and register user */
-  async function signup(formData) {
+  async function register(formData) {
     let res = await TrainerAppApi.register(formData);
     // setToken(res.token);
     return;
-  }
+    }
 
-  /**Function to be called in login form to call API and login the user*/
-  async function login(formData) {
-    let res = await TrainerAppApi.login(formData);
-    // setToken(res.token);
+    /**Function to be called in login form to call API and login the user*/
+    async function login(formData) {
+      let res = await TrainerAppApi.login(formData);
+      console.log(formData);
+      // setToken(res.token);
     return;
   }
 
@@ -75,15 +71,7 @@ function App() {
       <userContext.Provider value={null}>
       <BrowserRouter>
         <NavBar />
-        <Routes>
-          <Route path="/" element={<HomePage/>} />
-          <Route path="/client" element={<ClientDash/>} />
-          <Route path="/trainer" element={<TrainerDash/>} />
-          <Route path="/workoutbuilder" element={<WorkoutBuilder/>} />
-          <Route path="/library" element={<ExerciseLibrary/>} />
-          <Route path="/register" element={<RegisterPage/>} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <RouteList register={register} login={login}/>
       </BrowserRouter>
       </userContext.Provider>
     </div>
