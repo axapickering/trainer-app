@@ -1,11 +1,9 @@
-"use strict";
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Container, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import Alert from './Alert';
+import Alert from '../Alert';
 
 function LoginForm({ login }) {
 
@@ -37,7 +35,7 @@ function LoginForm({ login }) {
       <Row className='w-100'>
         <Col xs={12} sm={10} md={8} lg={6} xl={5} className='mx-auto py-5'>
           <div className='p-4 bg-light rounded'>
-            <Form>
+            <Form onSubmit={handleLogin}>
 
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label>Username</Form.Label>

@@ -1,5 +1,3 @@
-"use strict";
-
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000";
 
 /** API Class.
@@ -59,14 +57,16 @@ class TrainerAppApi {
 
   /**Takes username and password from login form and signs in the user via APi call */
   static async login(userData) {
-    let res = await this.request('users/login', userData, "POST");
+    let res = await this.request('auth/login', userData, "POST");
+    console.log(res);
     return res;
   }
 
   /**Takes username and calls API to get the rest of the user data */
   static async getUserInfo(username) {
     let res = await this.request(`users/${username}`);
-    return res.user;
+    console.log("user info returned: ",await res)
+    return res.foundUser;
   }
 
   // /** Takes in userdata and calls API to update user's data with new values*/

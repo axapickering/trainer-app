@@ -1,11 +1,9 @@
-"use strict";
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Container, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
-import Alert from "./Alert";
+import Alert from "../Alert";
 
 
 function RegisterForm({ register }) {

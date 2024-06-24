@@ -1,6 +1,6 @@
 "use strict";
 
-import LoginForm from './LoginForm';
+import LoginForm from './Forms/LoginForm';
 import userContext from "./userContext";
 import ClientDash from './ClientDash/ClientDash';
 import { useContext } from 'react';

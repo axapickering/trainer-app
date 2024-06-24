@@ -1,14 +1,14 @@
 "use strict";
 
 import React, { useContext, useState }from "react";
-import userContext from "./userContext";
+import userContext from "../userContext";
 import { Routes, Route , Navigate } from 'react-router-dom';
-import ClientDash from "./ClientDash/ClientDash";
-import TrainerDash from "./TrainerDash/TrainerDash";
-import HomePage from './HomePage';
-import WorkoutBuilder from './WorkoutBuilder/WorkoutBuilder';
-import ExerciseLibrary from './ExerciseLibrary';
-import RegisterPage from './RegisterPage';
+import ClientDash from "../ClientDash/ClientDash";
+import TrainerDash from "../TrainerDash/TrainerDash";
+import HomePage from '../HomePage';
+import WorkoutBuilder from '../WorkoutBuilder/WorkoutBuilder';
+import ExerciseLibrary from '../ExerciseLibrary';
+import RegisterPage from '../RegisterPage';
 
 
 function RouteList({ register, login }) {

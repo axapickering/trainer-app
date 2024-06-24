@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 
 const app = express();
@@ -25,6 +26,7 @@ mongoose.connect(mongoURI)
 
 
 app.use('/users', userRouter);
+app.use('/auth', authRouter);
 
 /** Handle 404 errors*/
 app.use(function (req, res, next) {

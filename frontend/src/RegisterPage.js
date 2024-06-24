@@ -1,6 +1,4 @@
-"use strict";
-
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "./Forms/RegisterForm";
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
