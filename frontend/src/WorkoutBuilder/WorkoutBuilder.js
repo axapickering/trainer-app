@@ -10,6 +10,12 @@ export default function WorkoutBuilder() {
       <div className='container'>
       <ExerciseSlot />
       <ExerciseBox />
+      <br/>
+      <ExerciseBox />
+      <br/>
+      <ExerciseBox />
+      <br/> 
+      <ExerciseBox />
       </div>
     </DndContext>
   );

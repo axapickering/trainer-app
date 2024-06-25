@@ -7,7 +7,7 @@ import ClientDash from "../ClientDash/ClientDash";
 import TrainerDash from "../TrainerDash/TrainerDash";
 import HomePage from '../HomePage';
 import WorkoutBuilder from '../WorkoutBuilder/WorkoutBuilder';
-import ExerciseLibrary from '../ExerciseLibrary';
+import ExerciseLibrary from '../ExerciseLibrary/ExerciseLibrary';
 import RegisterPage from '../RegisterPage';
 
 

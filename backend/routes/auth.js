@@ -33,7 +33,7 @@ router.post("/login", async function (req, res, next) {
     return res.json({ token });
 
   } catch (err) {
-    return res.send(err);
+    return res.send({ err : "Incorrect login info."});
   }
 });
 
